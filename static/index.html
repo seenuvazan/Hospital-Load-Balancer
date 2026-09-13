@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospital Load Balancer</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Priority-Based Intelligent Load Balancing</p>
+          <h1>Hospital Load Balancer</h1>
+          <p class="hero-copy">
+            A pure software-based hospital traffic router that distributes digital requests
+            across servers, protects high availability, and fast-tracks emergency services.
+          </p>
+        </div>
+        <div class="hero-stat-grid">
+          <div class="hero-stat">
+            <span>Server Pool</span>
+            <strong id="server-count">0 servers</strong>
+            <small>Live infrastructure nodes</small>
+          </div>
+          <div class="hero-stat warm">
+            <span>Average Load</span>
+            <strong id="avg-load">0%</strong>
+            <small>System-wide utilization</small>
+          </div>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Admin Dashboard</h2>
+            <p>Add backend servers and monitor health, load, and resilience.</p>
+          </div>
+          <form id="server-form" class="stack">
+            <input name="name" placeholder="Server name" required />
+            <div class="grid two">
+              <select name="server_type">
+                <option value="emergency-routing">Emergency routing</option>
+                <option value="doctor-services">Doctor services</option>
+                <option value="patient-services">Patient services</option>
+                <option value="shared-services">Shared services</option>
+              </select>
+              <select name="status">
+                <option value="healthy">Healthy</option>
+                <option value="warning">Warning</option>
+                <option value="down">Down</option>
+              </select>
+            </div>
+            <div class="grid two">
+              <input name="max_capacity" type="number" min="1" placeholder="Max capacity" required />
+              <input name="current_load" type="number" min="0" placeholder="Current load" required />
+            </div>
+            <input name="avg_response_ms" type="number" min="1" placeholder="Avg response (ms)" required />
+            <button type="submit">Add Server</button>
+          </form>
+
+          <div class="health-strip">
+            <div class="metric">
+              <span>Healthy</span>
+              <strong id="healthy-count">0</strong>
+            </div>
+            <div class="metric">
+              <span>Warning</span>
+              <strong id="warning-count">0</strong>
+            </div>
+            <div class="metric">
+              <span>Down</span>
+              <strong id="down-count">0</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel accent">
+          <div class="panel-heading">
+            <h2>Priority Router</h2>
+            <p>Emergency requests bypass normal traffic, followed by doctor and patient flows.</p>
+          </div>
+          <div class="tabs">
+            <button class="tab active" data-tab="emergency">Emergency Module</button>
+            <button class="tab" data-tab="doctor">Doctor Panel</button>
+            <button class="tab" data-tab="patient">Patient Panel</button>
+          </div>
+
+          <form id="request-form" class="stack">
+            <input name="source_name" placeholder="Source name" required />
+            <div class="grid two">
+              <select name="request_type" id="request-type">
+                <option value="emergency">Emergency</option>
+                <option value="doctor">Doctor</option>
+                <option value="patient">Patient</option>
+              </select>
+              <select name="condition_level" id="condition-level">
+                <option value="critical">Critical</option>
+                <option value="urgent">Urgent</option>
+                <option value="stable">Stable</option>
+                <option value="normal">Normal</option>
+              </select>
+            </div>
+            <select name="target_module" id="target-module">
+              <option value="icu-monitoring">ICU Monitoring</option>
+              <option value="lab-reports">Lab Reports</option>
+              <option value="appointment-booking">Appointment Booking</option>
+              <option value="ehr-access">EHR Access</option>
+            </select>
+            <button type="submit">Route Request</button>
+          </form>
+
+          <div id="decision-card" class="decision empty">
+            <p>No request routed yet. Submit traffic to see the intelligent allocation decision.</p>
+          </div>
+        </section>
+      </main>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>Live Server Load</h2>
+          <p>Current utilization across emergency, doctor, patient, and shared-service nodes.</p>
+        </div>
+        <div id="server-grid" class="hospital-grid"></div>
+      </section>
+
+      <section class="split-panels">
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Request Queue</h2>
+            <p>Requests table reflecting `requests` design from your project idea.</p>
+          </div>
+          <div id="request-list" class="allocation-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Routing Logs</h2>
+            <p>Routing decisions table reflecting `logs` and system reasoning.</p>
+          </div>
+          <div id="log-list" class="allocation-list"></div>
+        </section>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>Smart Database Design</h2>
+          <p>`requests`, `servers`, `patients`, and `logs` are modeled in the project and exposed in the portal.</p>
+        </div>
+        <div id="patient-list" class="allocation-list"></div>
+      </section>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
